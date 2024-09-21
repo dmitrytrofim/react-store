@@ -1,20 +1,29 @@
 import { useEffect } from 'react';
+import Cart from '~/components/Cart';
+import Catalog from '~/components/Catalog';
 import Container from '~/components/Container';
-import useStore from '~/store/ministore';
+import Filters from '~/components/Filters';
+import PopupMore from '~/components/PopupMore';
+import useStore from '~/store/store';
 
 function App() {
- const store = useStore();
- console.log(store.products.data[0]);
+ const getProducts = useStore((s) => s.getProducts);
 
  useEffect(() => {
-  store.getProducts();
+  getProducts();
  }, []);
 
  return (
-  <div className="py-[10px]">
+  <div className="py-[20px]">
    <Container>
-    <h1 className="text-[32px] font-700 text-center">Mini-Store</h1>
+    <h1 className="text-[32px] font-700 text-center mb-[20px]">Mini-Store</h1>
+    <div className="grid grid-cols-[200px_1fr_200px] gap-[10px]">
+     <Filters />
+     <Catalog />
+     <Cart />
+    </div>
    </Container>
+   <PopupMore />
   </div>
  );
 }

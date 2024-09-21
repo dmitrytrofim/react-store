@@ -38,10 +38,10 @@
   @apply w-[6px] h-0;
  }
  ::-webkit-scrollbar-track {
-  @apply bg-[var(--b-white)] shadow-[0px_0px_3px_var(--b-white)_inset];
+  @apply bg-[var(--b-fff)] shadow-[0px_0px_3px_var(--b-fff)_inset];
  }
  ::-webkit-scrollbar-thumb {
-  @apply rounded-[2px] bg-[var(--b-black)];
+  @apply rounded-[2px] bg-[var(--b-000)];
  }
  ::-webkit-resizer {
   @apply w-[7px] h-0;
@@ -50,7 +50,10 @@
   @apply w-[7px];
  }
  body {
-  @apply font-inter font-400 text-16 leading-n text-[var(--t-dark)] bg-[var(--b-white)];
+  @apply font-inter font-400 text-16 leading-n text-[var(--t-000)] bg-[var(--b-fff)];
+ }
+ body.j-lock {
+  overflow: hidden;
  }
  input,
  select,
