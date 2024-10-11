@@ -49,7 +49,9 @@
  ::-webkit-scrollbar {
   @apply w-[7px];
  }
+ html,
  body {
+  scrollbar-gutter: stable;
   @apply font-inter font-400 text-16 leading-n text-[var(--t-000)] bg-[var(--b-fff)];
  }
  body.j-lock {

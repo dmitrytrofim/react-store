@@ -9,6 +9,7 @@ export interface IStore {
  getProducts: () => void;
  showPopupMore: (id: number) => void;
  closePopupMore: () => void;
+ countControls: (id: number, increment?: boolean) => void;
 }
 
 export interface IProduct {
@@ -22,4 +23,6 @@ export interface IProduct {
   rate: number;
  };
  title: string;
+ count?: number;
+ maxCount?: number;
 }

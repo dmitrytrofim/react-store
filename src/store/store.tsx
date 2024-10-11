@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { IStore } from '~/modules/modules';
+import { IProduct } from '~/modules/modules';
 
 const useStore = create<IStore>((set, get) => ({
  products: {
@@ -10,13 +11,21 @@ const useStore = create<IStore>((set, get) => ({
   data: null,
  },
  getProducts: async () => {
+  function random(min: number, max: number) {
+   return Math.floor(Math.random() * (max - min) + min);
+  }
   try {
    const response = await fetch('https://fakestoreapi.com/products');
    const result = await response.json();
+   const newResult = result.map((el: IProduct) => {
+    el.count = 1;
+    el.maxCount = random(5, 15);
+    return el;
+   });
    set((state) => ({
     products: {
      ...state.products,
-     data: [...result],
+     data: [...newResult],
     },
    }));
   } catch (err: unknown) {
@@ -38,6 +47,33 @@ const useStore = create<IStore>((set, get) => ({
    popupMore: {
     ...state.popupMore,
     open: false,
+   },
+  }));
+ },
+ countControls(id, increment = false) {
+  const product = get().products.data.find((el) => el.id === id);
+  set((state) => ({
+   products: {
+    data: state.products.data.map((el) => {
+     if (el === product) {
+      if (increment) {
+       if (el.maxCount === 0) {
+        return el;
+       } else {
+        el.count!++;
+        el.maxCount!--;
+       }
+      } else {
+       if (el.count === 1) {
+        return el;
+       } else {
+        el.count!--;
+        el.maxCount!++;
+       }
+      }
+     }
+     return el;
+    }),
    },
   }));
  },

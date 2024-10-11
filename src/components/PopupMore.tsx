@@ -44,7 +44,7 @@ function PopupMore() {
       <span className="text-[20px] text-[orange] mt-[-10px]">&#9733;</span>
      </span>
      <img
-      className="justify-self-center w-[100px]"
+      className="justify-self-center w-[150px] h-[150px] object-contain"
       src={popupData?.image}
       alt=""
      />
