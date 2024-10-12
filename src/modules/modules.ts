@@ -12,7 +12,6 @@ export interface IStore {
 }
 
 export interface ICartSlice {
- products?: Array<IProduct>;
  cart: Array<IProduct>;
  addToCart: (product: IProduct) => void;
 }

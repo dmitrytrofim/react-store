@@ -24,7 +24,6 @@ const useStore = create<IStore & ICartSlice>()((set, get, api) => ({
     el.maxCount = random(5, 15);
     return el;
    });
-   console.log(api);
    set(() => ({
     products: newResult,
     resetProducts: newResult,
