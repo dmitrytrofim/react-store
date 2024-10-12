@@ -9,11 +9,14 @@ export interface IStore {
  showPopupMore: (id: number) => void;
  closePopupMore: () => void;
  countControls: (id: number, increment?: boolean) => void;
+ updateCountCart: (el: IProduct) => void;
 }
 
 export interface ICartSlice {
+ products?: Array<IProduct>;
  cart: Array<IProduct>;
  addToCart: (product: IProduct) => void;
+ removeProduct: (product: IProduct) => void;
 }
 
 export interface IProduct {

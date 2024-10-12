@@ -51,6 +51,7 @@
  }
  html,
  body {
+  scroll-behavior: smooth;
   scrollbar-gutter: stable;
   @apply font-inter font-400 text-16 leading-n text-[var(--t-000)] bg-[var(--b-fff)];
  }

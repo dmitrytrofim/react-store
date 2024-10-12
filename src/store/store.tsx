@@ -26,7 +26,7 @@ const useStore = create<IStore & ICartSlice>()((set, get, api) => ({
    });
    set(() => ({
     products: newResult,
-    resetProducts: newResult,
+    resetProducts: structuredClone(newResult),
    }));
   } catch (err: unknown) {
    console.error(err);
@@ -61,6 +61,7 @@ const useStore = create<IStore & ICartSlice>()((set, get, api) => ({
       } else {
        el.count!++;
        el.maxCount!--;
+       get().updateCountCart(el);
       }
      } else {
       if (el.count === 1) {
@@ -68,12 +69,24 @@ const useStore = create<IStore & ICartSlice>()((set, get, api) => ({
       } else {
        el.count!--;
        el.maxCount!++;
+       get().updateCountCart(el);
       }
      }
     }
     return el;
    }),
   }));
+ },
+ updateCountCart(el) {
+  const findProduct = get().cart.find((prod) => prod.id === el.id);
+  if (findProduct) {
+   set((state) => ({
+    cart: [
+     { ...findProduct, count: el.count },
+     ...state.cart.filter((prod) => prod.id !== el.id),
+    ],
+   }));
+  }
  },
 }));
 
