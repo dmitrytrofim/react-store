@@ -4,8 +4,8 @@ import { IProduct } from '~/modules/modules';
 import { createCartSlice } from '~/store/cartSlice';
 import { ICartSlice } from '~/modules/modules';
 
-const useStore = create<IStore & ICartSlice>()((set, get) => ({
- ...createCartSlice(set, get),
+const useStore = create<IStore & ICartSlice>()((set, get, api) => ({
+ ...createCartSlice(set, get, api),
  products: [],
  resetProducts: [],
  popupMore: {
@@ -24,6 +24,7 @@ const useStore = create<IStore & ICartSlice>()((set, get) => ({
     el.maxCount = random(5, 15);
     return el;
    });
+   console.log(api);
    set(() => ({
     products: newResult,
     resetProducts: newResult,
