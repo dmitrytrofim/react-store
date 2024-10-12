@@ -5,11 +5,14 @@ import useStore from '~/store/store';
 function CatalogItem({ product }: { product: IProduct }) {
  const openPopup = useStore((s) => s.showPopupMore);
  const controlCount = useStore((s) => s.countControls);
+ const cartProducts = useStore((s) => s.cart);
+ const addCart = useStore((s) => s.addToCart);
  const controlItem = useRef<HTMLDivElement | null>(null);
  const showPopupHandler = (e: React.MouseEvent) => {
   if ((e.target as HTMLElement).closest('div') === controlItem.current) return;
   openPopup(product.id);
  };
+ const styleBlockPanel = 'pointer-events-none opacity-50';
 
  return (
   <li
@@ -41,7 +44,9 @@ function CatalogItem({ product }: { product: IProduct }) {
    </p>
    <div
     ref={controlItem}
-    className="flex items-center justify-center gap-[10px]"
+    className={`flex items-center justify-center gap-[10px] ${
+     cartProducts.includes(product) ? styleBlockPanel : ''
+    }`}
    >
     <button
      onClick={() => controlCount(product.id)}
@@ -49,7 +54,12 @@ function CatalogItem({ product }: { product: IProduct }) {
     >
      -
     </button>
-    <button className="flex items-center gap-[10px] text-[white] bg-[green] rounded-[5px] p-[5px_10px]">
+    <button
+     onClick={() => addCart(product)}
+     className={`flex items-center gap-[10px] text-[white] bg-[green] rounded-[5px] p-[5px_10px] ${
+      cartProducts.includes(product) ? '!bg-[#2f2f2f]' : ''
+     }`}
+    >
      <span className="font-500 min-w-[30px]">{product.count}</span>
      <svg
       xmlns="http://www.w3.org/2000/svg"

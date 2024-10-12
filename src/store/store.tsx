@@ -1,11 +1,13 @@
 import { create } from 'zustand';
 import { IStore } from '~/modules/modules';
 import { IProduct } from '~/modules/modules';
+import { createCartSlice } from '~/store/cartSlice';
+import { ICartSlice } from '~/modules/modules';
 
-const useStore = create<IStore>((set, get) => ({
- products: {
-  data: [],
- },
+const useStore = create<IStore & ICartSlice>()((set, get) => ({
+ ...createCartSlice(set, get),
+ products: [],
+ resetProducts: [],
  popupMore: {
   open: false,
   data: null,
@@ -22,23 +24,21 @@ const useStore = create<IStore>((set, get) => ({
     el.maxCount = random(5, 15);
     return el;
    });
-   set((state) => ({
-    products: {
-     ...state.products,
-     data: [...newResult],
-    },
+   set(() => ({
+    products: newResult,
+    resetProducts: newResult,
    }));
   } catch (err: unknown) {
    console.error(err);
   }
  },
  showPopupMore(id) {
-  const findItemId = get().products.data.findIndex((item) => item.id === id);
+  const findItemId = get().products.findIndex((item) => item.id === id);
   set((state) => ({
    popupMore: {
     ...state.popupMore,
     open: true,
-    data: get().products.data[findItemId],
+    data: get().products[findItemId],
    },
   }));
  },
@@ -51,30 +51,28 @@ const useStore = create<IStore>((set, get) => ({
   }));
  },
  countControls(id, increment = false) {
-  const product = get().products.data.find((el) => el.id === id);
+  const product = get().products.find((el) => el.id === id);
   set((state) => ({
-   products: {
-    data: state.products.data.map((el) => {
-     if (el === product) {
-      if (increment) {
-       if (el.maxCount === 0) {
-        return el;
-       } else {
-        el.count!++;
-        el.maxCount!--;
-       }
+   products: state.products.map((el) => {
+    if (el === product) {
+     if (increment) {
+      if (el.maxCount === 0) {
+       return el;
       } else {
-       if (el.count === 1) {
-        return el;
-       } else {
-        el.count!--;
-        el.maxCount!++;
-       }
+       el.count!++;
+       el.maxCount!--;
+      }
+     } else {
+      if (el.count === 1) {
+       return el;
+      } else {
+       el.count!--;
+       el.maxCount!++;
       }
      }
-     return el;
-    }),
-   },
+    }
+    return el;
+   }),
   }));
  },
 }));

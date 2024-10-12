@@ -1,7 +1,6 @@
 export interface IStore {
- products: {
-  data: Array<IProduct>;
- };
+ products: Array<IProduct>;
+ resetProducts: Array<IProduct>;
  popupMore: {
   open: boolean;
   data: IProduct | null;
@@ -10,6 +9,11 @@ export interface IStore {
  showPopupMore: (id: number) => void;
  closePopupMore: () => void;
  countControls: (id: number, increment?: boolean) => void;
+}
+
+export interface ICartSlice {
+ cart: Array<IProduct>;
+ addToCart: (product: IProduct) => void;
 }
 
 export interface IProduct {
