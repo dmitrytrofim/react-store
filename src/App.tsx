@@ -16,7 +16,7 @@ function App() {
  return (
   <div className="py-[20px]">
    <Container>
-    <h1 className="text-[32px] font-700 text-center mb-[20px]">Mini-Store</h1>
+    <h1 className="text-[32px] font-700 text-center mb-[20px]">Mini-Store-2</h1>
     <div className="grid grid-cols-[200px_1fr_200px] gap-[10px]">
      <Filters />
      <Catalog />
