@@ -9,7 +9,7 @@ function Cart() {
    <span className="flex justify-center text-center text-[26px] font-700 mb-[10px]">
     Cart
    </span>
-   <div className="sticky top-[10px] border">
+   <div className="sticky top-[10px] rounded-[10px] border">
     <div className="max-h-[calc(100dvh-240px)] overflow-y-auto">
      {cartProducts.map((product) => {
       return (

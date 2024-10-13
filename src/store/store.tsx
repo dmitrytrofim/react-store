@@ -84,6 +84,15 @@ const useStore = create<IStore & ICartSlice>()((set, get, api) => ({
    }));
   }
  },
+ sortPrice(val) {
+  set((state) => ({
+   products: [
+    ...state.products.sort((a, b) =>
+     val !== 'up' ? a.price - b.price : b.price - a.price
+    ),
+   ],
+  }));
+ },
  sortRating(val) {
   set((state) => ({
    products: [

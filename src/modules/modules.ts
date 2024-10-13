@@ -10,6 +10,7 @@ export interface IStore {
  closePopupMore: () => void;
  countControls: (id: number, increment?: boolean) => void;
  updateCountCart: (el: IProduct) => void;
+ sortPrice: (val: string) => void;
  sortRating: (val: string) => void;
 }
 
