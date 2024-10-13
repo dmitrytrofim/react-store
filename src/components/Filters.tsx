@@ -20,11 +20,12 @@ function Filters() {
  }, [rating]);
 
  return (
-  <div className="border">
+  <div className="">
    <span className="flex justify-center text-center text-[26px] font-700 mb-[10px]">
     Filters
    </span>
-   <div className="filters-style sticky top-0">
+   <div className="filters-style flex flex-col sticky top-[10px] border p-[10px]">
+    <span className="text-[20px] font-600 text-center mb-[5px]">Rating</span>
     <div className="flex justify-center">
      <ToggleButtonGroup
       color="primary"
