@@ -37,10 +37,10 @@ function CatalogItem({ product }: { product: IProduct }) {
    </div>
    <p
     className={`text-[18px] text-center mb-[10px] ${
-     product.maxCount === 0 ? 'text-[red]' : ''
+     product.rating.count === 0 ? 'text-[red]' : ''
     }`}
    >
-    Left in stock: <span className="font-600">{product.maxCount}</span>
+    Left in stock: <span className="font-600">{product.rating.count}</span>
    </p>
    <div
     ref={controlItem}

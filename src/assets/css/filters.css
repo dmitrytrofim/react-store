@@ -1,0 +1,8 @@
+.filters-style .MuiButtonBase-root.MuiToggleButtonGroup-grouped {
+ font-size: 22px !important;
+ padding: 4px 16px;
+}
+.filters-style
+ .css-w4gp61-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
+ background-color: rgba(25, 118, 210, 0.2);
+}

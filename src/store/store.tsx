@@ -13,15 +13,11 @@ const useStore = create<IStore & ICartSlice>()((set, get, api) => ({
   data: null,
  },
  getProducts: async () => {
-  function random(min: number, max: number) {
-   return Math.floor(Math.random() * (max - min) + min);
-  }
   try {
    const response = await fetch('https://fakestoreapi.com/products');
    const result = await response.json();
    const newResult = result.map((el: IProduct) => {
     el.count = 1;
-    el.maxCount = random(5, 15);
     return el;
    });
    set(() => ({
@@ -56,11 +52,11 @@ const useStore = create<IStore & ICartSlice>()((set, get, api) => ({
    products: state.products.map((el) => {
     if (el === product) {
      if (increment) {
-      if (el.maxCount === 0) {
+      if (el.rating.count === 0) {
        return el;
       } else {
        el.count!++;
-       el.maxCount!--;
+       el.rating.count!--;
        get().updateCountCart(el);
       }
      } else {
@@ -68,7 +64,7 @@ const useStore = create<IStore & ICartSlice>()((set, get, api) => ({
        return el;
       } else {
        el.count!--;
-       el.maxCount!++;
+       el.rating.count!++;
        get().updateCountCart(el);
       }
      }
@@ -87,6 +83,17 @@ const useStore = create<IStore & ICartSlice>()((set, get, api) => ({
     ],
    }));
   }
+ },
+ sortRating(val) {
+  set((state) => ({
+   products: [
+    ...state.products.sort((a, b) =>
+     val !== 'up'
+      ? a.rating.rate - b.rating.rate
+      : b.rating.rate - a.rating.rate
+    ),
+   ],
+  }));
  },
 }));
 
